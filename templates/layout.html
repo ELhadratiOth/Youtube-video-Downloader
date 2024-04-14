@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Youtube Downloader {% block title%}{% endblock title%}</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="../static/ytwebsite.png" type="image/x-icon">
+    <script src="../static/alerts.js"></script>
+
+
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="navbar-name"> <img class="ytloco" src="../static/yt.png" alt="ytlogo"></div>
+        <div class="navbar-element">
+
+            <div class="navbar-inner-element">
+                {% block bar %} 
+ 
+                {% endblock bar %} 
+            </div>
+        </div>
+    </div>
+
+    <div class="body2" >
+        <div class="main-div" > 
+            
+            <div class="title-wbsite" >
+                <p class="title-wbsite-text" > Youtube {% block titleApp %}   {% endblock titleApp %}   <br> Downloader </p>
+            </div>
+            <div class="features">
+                <div class="feat" > <img class="feat-icon" src="../static/application.png" alt="feat"> unlimited downloads </div>
+                <div class="feat" > <img class="feat-icon" src="../static/application.png" alt="feat"> supports multiple videos at once </div> 
+                <div class="feat" ><img class="feat-icon" src="../static/application.png" alt="feat">  no watermarks or ads </div>
+    
+            </div>
+    
+    
+        {% block input %} {% endblock input %}
+        
+ 
+
+      
+
+        </div>
+    </div>
+
+    <div class="faq" id="faq" >
+        <div class="cadre1" >
+            <img class="cadre1-img" src="../static/faq.png" alt="FAQsImg">
+
+        </div>
+        <div class="cadre2" >
+            <div class="cadre2-p">
+            <br>
+            <div class="title">
+                    <p>Legalities of Video Downloads </p>
+                    <img src="../static/plus.png" alt="plus" class="plus" >
+                    <img src="../static/minus.png" alt="minus" class="minus hidden">
+            </div>
+            <hr>
+            <p class="hidden paragraphe">Our website operates in compliance with YouTube's terms of service. While YouTube's terms prohibit downloading videos without explicit permission from the content owner, our service allows users to download videos for personal, non-commercial use only.</p>
+            <br>
+            <div class="title">
+                <p>Downloadable Video Formats and Quality                </p>
+                <img src="../static/plus.png" alt="plus" class="plus"   >
+                <img src="../static/minus.png" alt="minus" class="minus hidden">
+            </div>
+            <hr>
+            <p class="hidden paragraphe">We offer a variety of video formats to suit your preferences. You can typically download videos in formats such as MP4, MP3 , Transcription with the heigh quality options.</p>
+            <br>
+            <div class="title">
+                <p>Limits on Download Quantity                </p>
+                <img src="../static/plus.png" alt="plus" class="plus" >
+                <img src="../static/minus.png" alt="minus" class="minus hidden">
+            </div>
+            <hr>
+            <p class="hidden paragraphe">Our service does not impose any strict limitations on the number of videos you can download. However, please be considerate of our server resources and refrain from excessive or abusive usage. We encourage responsible downloading practices to ensure a smooth experience for all users.</p>
+            <br>
+            <div class="title">
+                <p>User Data Privacy Measures              </p>
+                <img src="../static/plus.png" alt="plus" class="plus" >
+                <img src="../static/minus.png" alt="minus" class="minus hidden">
+            </div>
+            <hr>           
+            <p class="hidden paragraphe ">We take user privacy and data security seriously. Any information you provide, such as video URLs or download preferences, is used solely for the purpose of facilitating your downloads.</p>
+            <br>
+        </div>
+           
+
+            
+        </div>
+
+
+    </div>
+
+    <div class="contactUs" id="contactUs" >
+
+        <div class="conta1" >
+            <div class="sous-cont1">
+
+        <div class="conta1-title">
+            <p>Contact us</p>
+        </div>                  
+
+        <form action="/" method="post" class="contact-from">
+        <hr>
+        <div class="conta1-content1">
+            <p>Full Name</p>
+            <input type="text" name="fullNameContactUs" class="textContactUs"  placeholder="Enter your Name..." required/>
+
+        </div>
+        <div class="conta1-content1">
+            <p>Email</p>
+            <input type="email" name="emailContactUs" class="textContactUs"  placeholder="Enter your Email..." required/>
+
+        </div>
+        <div class="conta1-content1">
+            <p>Type your Message...</p>
+            <textarea name="textContactUs" class="messageContactUs" placeholder="Enter your message..." required title="Please enter a message."></textarea>
+
+
+        </div> 
+        <button type="submit" class="sendMessageContactUs">Send message</button>     
+        </form>
+        
+        </div>
+
+
+        </div>
+        <div class="conta2" >
+            <div class="conta1-title"> 
+                <p>Assistance</p> 
+                
+            </div>
+            <hr>
+            <p>Need help or have any questions? We're here for you! Visit our website and reach out to us for any assistance you need. Our team is ready to provide support and answer your inquiries. Let us know how we can help you today! </p>
+            
+            <div class="social-med">
+                <div  class="div-social">
+                <span><img class="img1-div-social" src="../static/linkedin.png" alt="linkden"> <a href="https://www.linkedin.com/in/othman-el-hadrati-91aa98243/"></a></span>
+                <span><img class="img2-div-social" src="../static/github.png" alt="github"> <a href="https://www.linkedin.com/in/othman-el-hadrati-91aa98243/"></a></span>
+
+            </div>
+            </div>
+        </div> 
+    </div>
+
+
+    <script>
+        const plusButtons = document.querySelectorAll('.plus');
+        const minusButtons = document.querySelectorAll('.minus');
+        const paragraphs = document.querySelectorAll('.paragraphe');
+
+        for (let i = 0; i < plusButtons.length; i++) {
+            plusButtons[i].addEventListener('click', function() {
+                plusButtons[i].classList.toggle('hidden');
+                minusButtons[i].classList.toggle('hidden');
+                paragraphs[i].classList.toggle('hidden');
+            });
+        }
+
+        for (let i = 0; i < minusButtons.length; i++) {
+            minusButtons[i].addEventListener('click', function() {
+                plusButtons[i].classList.toggle('hidden');
+                minusButtons[i].classList.toggle('hidden');
+                paragraphs[i].classList.toggle('hidden');
+            });
+        }
+
+
+ 
+    </script>
+
+</body>
+</html>

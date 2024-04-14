@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+{% block title %} Main Page {% endblock %}
+{% block titleApp %}  Video {% endblock titleApp %}
+
+
+
+{% block bar %} 
+                <!-- <form class="link-a1"  action="/" method="post"> -->
+                <a type="submit" class=  "link-a1" href="/">Home</a>
+                <!-- </form> -->
+                <!-- <form class=  "link-a2"  action="/switch" method="post"> -->
+                <a type="submit" class=  "link-a2" href="/switch">Playlist</a>
+                <!-- </form> -->
+                <a class="link-a3" href="#faq">FAQs</a>
+                <a class="link-a4" href="#contactUs">Contact us</a>
+                <span class="navbar-span"  ></span>
+{% endblock bar %} 
+
+
+
+
+{% block input %}
+
+
+<form  action="/" method="post" id="youtubeForm">
+    <div  class="input-video">
+    
+    
+    <div class="link-div" >
+        <input class="url-class" type="url" placeholder="Youtube\Short URL" name="url" id="youtubeUrl" required  > 
+        <span class="custom-button-url" ><img src="../static/url.png" alt="button-failed" class="custom-button-url-icon"></span>
+
+    </div>
+    <div class="choice-type">
+        <select name="typeDownload"  id="typeDownload"  >
+            <option disabled selected >Type Of Download</option>
+            <option  value="Mp4">Mp4 </option>
+            <option  value="Mp3">Mp3 </option>
+        </select>
+        <span class="custom-button-select" ><img src="../static/choose.png" alt="button-failed" class="custom-button-select-icon"></span>
+    </div>
+
+    </div>
+    <div class="button-download" >
+        <button name="check"  type="submit" class="button" id="alertuse">
+            <div class="button-div">
+                
+                    <img class="dwnimg" src="../static/download.png" alt="download-icon"> <div>Download</div>  
+                
+            </div>
+        </button>
+    </div>
+
+</form>
+
+<script>
+
+
+    // Event listener for form submission
+    document.getElementById("youtubeForm").addEventListener("submit", function(event) {
+    var url = document.getElementById("youtubeUrl").value;
+    const pattern = /^(https?:\/\/(?:www\.)?youtube\.com\/(?:shorts\/|watch\?))/;
+    var typeDownload = document.getElementById("typeDownload").value;
+    var TYPES = ['Mp3', 'Mp4'];
+
+    // Validate YouTube URL
+    if (!pattern.test(url)) {
+        event.preventDefault(); // Prevent form submission
+        customAlert('Please enter a valid  YouTube/Short URL.');
+        return;
+    }
+
+    // Validate type of download
+    if (!TYPES.includes(typeDownload)) {
+        event.preventDefault(); // Prevent form submission
+        customAlert('Please select a type of download.');
+        return;
+    }
+
+    // If both validations pass, the form will be submitted
+});
+
+
+
+    
+
+
+</script> 
+
+{% endblock input %}

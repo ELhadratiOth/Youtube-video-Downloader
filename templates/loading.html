@@ -1,0 +1,116 @@
+{% extends "layout2.html" %}
+{% block title %} Download Page  {% endblock %}
+          
+
+
+{% block loading %}
+
+<div class="post-class" >
+
+    <div class="download-details" >
+        <div class="div-thumbnail" style="background-image: url( {{ thumbnail_url }} );" > 
+        <!-- <div class="div-thumbnail" style="background-image: url(https://i.ytimg.com/vi/akU7HXvYft8/hq720.jpg?sqp=-oaymwEXCNUGEOADIAQqCwjVARCqCBh4INgESFo&rs=AOn4CLB11Dv_l0R1Y4ES2jLEf-EhlB23cw);" >  -->
+            <img class="yticon" src="../static/yticon.png"  alt="Youtube icon"/>
+
+        </div>
+
+        <div class="detail">
+
+            <div class="title-para-div" >
+                <p class="title-para"> 
+                {{ videoTitle }}
+                <!-- How to Create an Active Nav Link on Scroll using HTML CSS and Javascript | Active Menu Class -->
+
+                </p>
+            </div>
+        <div class="option-detail">   
+        <p> <span class="title-option-detail">Channel Name : </span>
+            {{ author }}
+        </p>   
+
+        <p><span class="title-option-detail">Publish Date : </span>
+            {{ publish_date }} 
+        </p>
+        <p><span class="title-option-detail">Duration : </span>  {{ duration }}
+        </p>
+         </div> 
+         </div>
+
+    </div>
+
+
+
+    <div class="container">
+        <div class="progress">
+            <div class="top">
+                <div class="small">
+                    progress Percentage
+                </div>
+                <div class="info">
+                    <p class="completion">
+                        <span class="percentage" id="number" >0%</span>
+                        <span  class="Completed">Completed</span>
+                        <span class="done"></span>
+                    </p>
+                    <p class="size"></p>
+                </div>
+            </div>
+            <div class="bar" id="outer-bar" >
+                <span class="loader" id="progress-bar" style="width: 0%;" ></span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    var oldWidth = document.querySelector('#progress-bar').offsetWidth; 
+    console.log(oldWidth)    // to get the current width of progress bar
+    var filelen = -1; // 'offsetWidth' property to get the width in pixels
+    var hasReached100 = false; // to disable the recursion of the function when the download finish       
+    
+    function fetchNumber() {
+        fetch('/get_progress') 
+            .then(response => response.json())
+            .then(data => {
+                 // data equivalent to an the key of a dictionary where the key is 'number' and the value is data.number <=> data.["number"] in py 
+
+                console.log("data:", data);
+                if ('filesize' in data) {
+                    filelen = data.filesize;
+                }
+                
+                if (data.number !== oldWidth) {
+                    document.getElementById('number').innerText = data.number + "%";
+                    var element = document.querySelector('#progress-bar');        
+                    element.style.transition = "width 1s ease";
+                    element.style.width = data.number + '%';
+                    if (data.number === 100 && hasReached100) {
+                        document.querySelector('.done').style = 'display:flex';
+                        document.querySelector('.Completed').innerText = 'Downloaded successfully'; 
+                        document.querySelector('.size').style = 'display:flex';
+                        document.querySelector('.size').innerText ="File Size : " + filelen + "MB";
+                        // document.querySelector('.loader').style =  'width = 100% ,  background: green'; 
+                        clearInterval(intervalId); // Stop the setInterval 
+                    }         
+                    document.getElementById("outer-bar").style.animation = "none";  
+                  
+                    if (data.number === 100 && !hasReached100) {
+                        hasReached100 = true;
+                    }
+                } else {
+                    var element = document.querySelector('#progress-bar');
+                    element.style.transition = "none";
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+    
+    var intervalId = setInterval(fetchNumber, 4000); 
+    fetchNumber();
+</script>
+
+{% endblock loading  %}  
+

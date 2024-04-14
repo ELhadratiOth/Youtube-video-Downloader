@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Youtube Downloader {% block title%}{%endblock title%}</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="../static/ytwebsite.png" type="image/x-icon">
+
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="navbar-name"> <img class="ytloco" src="../static/yt.png" alt="ytlogo"></div>
+        <div class="navbar-element">
+            <div class="navbar-inner-element">
+                <!-- <form class="link-a111"  action="/" method="post"> -->
+                <a type="submit" class="link-a1" href="#">Home</a>
+                <!-- </form> -->
+                <!-- <form class="link-a222"  action="/switch" method="post"> -->
+                <a type="submit" class="link-a2"  href="/switch">Playlist</a>
+                <!-- </form> -->
+                <a class="link-a3" href="#">FAQs</a>
+                <a class="link-a4" href="#">About us</a>
+                <span class="navbar-span2" ></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="body2" >
+           
+
+        {% block loading %} {% endblock loading %}
+
+
+    
+        
+    </div>
+</body>
+</html>

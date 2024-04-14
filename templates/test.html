@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Youtube Downloader {% block title%}{% endblock title%}</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="../static/ytwebsite.png" type="image/x-icon">
+
+    <script src="../static/alerts.js"></script>
+
+
+</head>
+<body>
+
+    <button id="testButton" class="btn" style="color: white;">test</button>
+<script>
+    document.getElementById("youtubeForm").addEventListener("submit", function(event) {
+        event.preventDefault();             
+        var url = document.getElementById("youtubeUrl").value;
+        const pattern = /^(https?:\/\/(?:www\.)?youtube\.com\/(?:shorts\/|watch\?))/;
+        var typeDownload = document.getElementById("typeDownload").value;
+        var TYPES = ['Mp3', 'Mp4'];
+        if (!pattern.test(url)) {
+            document.getElementById('testButton').addEventListener('click', function() {
+                // Call the custom alert function with the desired message and optional timeout
+                customAlert('This is a custom alert!', 3000);
+            });
+            return;
+        }
+        if (!TYPES.includes(typeDownload)) {
+            document.getElementById('testButton').addEventListener('click', function() {
+                // Call the custom alert function with the desired message and optional timeout
+                customAlert('This is a custom alert!', 3000);
+            });            return;
+        }
+        this.submit();
+    });
+
+
+</script>
+
+</body>
+</html>
+
+
+document.getElementById("youtubeForm").addEventListener("submit", function(event) {
+    event.preventDefault();             
+    var url = document.getElementById("youtubeUrl").value;
+    const pattern = /^(https?:\/\/(?:www\.)?youtube\.com\/(?:shorts\/|watch\?))/;
+    var typeDownload = document.getElementById("typeDownload").value;
+    var TYPES = ['Mp3', 'Mp4'];
+    if (!pattern.test(url)) {
+        alert("Please enter a valid YouTube/Short URL.");
+        return;
+    }
+    if (!TYPES.includes(typeDownload)) {
+        alert("Please select a type of download");
+        return;
+    }
+    this.submit();
+});
