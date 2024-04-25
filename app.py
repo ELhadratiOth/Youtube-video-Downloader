@@ -1,5 +1,5 @@
 import time
-from flask import Flask, jsonify, render_template, request, redirect, url_for
+from flask import Flask, jsonify, render_template, request, redirect, url_for , send_file , after_this_request
 import threading
 import os
 import pickle
@@ -19,6 +19,7 @@ app.config["MAIL_PASSWORD"] = os.getenv('MY_SECRET_KEY')
 app.config["MAIL_USE_TLS"] = True
 app.config["MAIL_USE_SSL"] = False
 mail = Mail(app)
+filename = ""
 
 TYPE=('Mp3','Mp4')
 def progress(stream, chunk, bytes_remaining):
@@ -67,6 +68,9 @@ def DownlaodClip(clip ,type):
 def index():
     if 'YTDownloads' not in os.getcwd():
         os.chdir('YTDownloads')
+    if os.path.exists(filename) :
+        os.remove(filename)
+
     if request.method == 'GET':
         return  render_template("index.html")
     elif request.method == 'POST' :
@@ -101,16 +105,29 @@ def mailSent():
 
 @app.route('/loading', methods=[ 'POST','GET'])
 def loading():
+    global filename
+    if 'YTDownloads' not in os.getcwd():
+        os.chdir('YTDownloads')
     url = request.args.get('url')
     typeDownload = request.args.get('typeDownload')
     clip = YouTube(url)
-    thread = threading.Thread(target=downloadVideoAudio, daemon=True ,  args=(url, typeDownload))
+    if os.path.exists('OYTDownload_'+clip.title+'.'+typeDownload.lower() ) :
+        os.remove('OYTDownload_'+clip.title+'.'+typeDownload.lower())
+    global thread
+    thread = threading.Thread(target=downloadVideoAudio,  args=(url, typeDownload))
     thread.start()
     # if thread.is_alive():
     #     print("Thread is running")
     # else:
     #     print("Thread is not running")
+    filename = 'OYTDownload_'+clip.title+'.'+typeDownload.lower()
+    print("first " , filename)
     return render_template("loading.html" , author=clip.author  ,videoTitle=clip.title  , duration= facFunction.elemnt_length(clip.length)  , thumbnail_url=clip.thumbnail_url , publish_date=clip.publish_date.date() )
+@app.route('/upload')
+def upload():
+    file_path = ".\\YTDownloads\\" + filename
+    print(file_path)
+    return send_file(file_path, as_attachment=True)
 
 @app.route('/get_progress', methods=['GET'])
 def get_number():
@@ -140,22 +157,23 @@ def switch():
 
 @app.route('/loadingp', methods=[ 'POST','GET'])
 def loadingp():
+    if 'YTDownloads' not in os.getcwd():
+        os.chdir('YTDownloads')
     url = request.args.get('url')
     typeDownload = request.args.get('typeDownload')
     clip = Playlist(url)
     thread = threading.Thread(target=downloadPlaylist, daemon=True ,  args=(url, typeDownload))
     thread.start()
-    # if thread.is_alive():
-    #     print("Thread is running")
-    # else:
-    #     print("Thread is not running")
+    if thread.is_alive():
+        print("Thread is running")
+    else:
+        print("Thread is not running")
     thum=clip.sidebar_info[0]['playlistSidebarPrimaryInfoRenderer']["thumbnailRenderer"]["playlistVideoThumbnailRenderer"]["thumbnail"]["thumbnails"][0]['url']
     return render_template("loadingp.html" , author=clip.owner  ,videoTitle=clip.title  , length= clip.length   , thumbnail_url=thum  )
 
 @app.route('/get_progress_p', methods=['GET'])
 def get_number_p():
     return jsonify({'counter' : COUNTER})
-
 
 
 

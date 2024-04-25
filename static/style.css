@@ -17,7 +17,7 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 2cm;
+    padding-bottom: 4cm;
 }
 
 .post-class{
@@ -324,7 +324,7 @@ font-size: 14px;
     /* align-items: center ; */
     margin-top: 2cm;
     margin-bottom: 2cm;
-    justify-content: space-around;
+    justify-content: center;
     width: 100%;
 }
 .choice-type{
@@ -343,6 +343,7 @@ font-size: 14px;
     border:2px  solid  rgba(0, 0, 0, 0.563) ;
     box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
     border-radius: 30px;
+    margin-left: 5%;
     cursor: pointer;
 }
 
@@ -366,11 +367,10 @@ font-size: 14px;
 .custom-button-select{
     position: absolute;
     top: 2%;
-    right: 0.5%;
+    right: -4.2%;
     height: 96%;
     width: 1.1cm;
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     background-color: #232727bc;
     pointer-events: none; /* make the element transparent so wa can click the button that exist in the select box*/
     display: flex;
@@ -378,6 +378,7 @@ font-size: 14px;
     align-items: center;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
+
     
 
 
@@ -437,6 +438,7 @@ width: 5cm;
 .button-download{
     display: flex;
     justify-content: center;
+
 }
 .button{
     font-family: "Poppins", sans-serif;
@@ -480,7 +482,7 @@ width: 5cm;
     margin-top: 0.5cm;
     width: 50%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     color: #ff00ea;
 }
@@ -667,7 +669,6 @@ width: 5cm;
 
 
 .ytloco{
-    margin-left: -13cm;
     margin-top: 0.5cm;
     width: 150px;
     height: 150px;
@@ -801,15 +802,16 @@ box-shadow: 0 0 10px rgba(4, 217, 255, 0.599);
     }
 
 .conta1{
-    width: 40%;
+    width: 37%;
     background-color: #011a3853;
+    padding-left: 1cm;
     padding-top: 0.5cm;
     padding-bottom: 0.5cm;
     border-radius: 30px;
     font-size: 15px;
     font-family: "Poppins", sans-serif;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     box-shadow: 0 0 10px rgba(6, 153, 160, 0.599);
 
@@ -822,20 +824,26 @@ box-shadow: 0 0 10px rgba(4, 217, 255, 0.599);
     padding-right: 0.7cm;
     font-size: 16px;
     font-family: "Poppins", sans-serif;
-    width: 35% ;
+    width: 33% ;
     color: white; 
-    height: 5.3cm;
+    height: auto;
     margin-top: 2.2cm;
     border-radius: 30px;
     padding-top: 0.5cm;
-    padding-bottom: 1cm;
+    margin-bottom:2cm;
     box-shadow: 0 0 10px rgba(6, 153, 160, 0.599);
 
 }
 
 .sous-cont1{
     width: 85%;
+    padding-left: 10%;
 
+}
+.detail-assis{
+    margin-top: 1cm;
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
 }
 .conta1-title{ 
     filter: drop-shadow(0px 0px 3px rgb(4, 211, 230));    
@@ -845,20 +853,23 @@ box-shadow: 0 0 10px rgba(4, 217, 255, 0.599);
     display: flex;
     align-items: center;
     margin: 0; 
+    margin-top: 0.5cm;
     font-size: 30px;
     font-family: "Poppins", sans-serif;
     font-weight: bold;
     border-radius: 10px;  
     
 }
+
 .contact-from{
     width: 85%;
     color: white;
 }
 
 .messageContactUs{
-    height: 2cm;
+    height: 3.5cm;
     width: 100%;
+    resize: none;
     margin: 12px 0 ;
     backdrop-filter: blur(10px);
     background-color:  #6e72732e;
@@ -944,8 +955,8 @@ box-shadow: 0 0 10px rgba(4, 217, 255, 0.599);
 .sendMessageContactUs{
     width: 6cm;
     height: 1cm;
-    background-color:#6bf0f0c3  ;
-    margin-left: 4cm;
+    background-color:#38f7f7ee  ;
+    margin-left: 20%;
     padding-bottom: 0.5cm;
     padding-top: 0.1cm;
     padding-left: 0.3cm;
@@ -1016,10 +1027,43 @@ transition: 1s  all ease;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgb(6, 152, 160);
     z-index: 1000; 
 }
 
 
+.confirm-div{
+    border-radius: 20px;
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+#confirm{
+    display: none;
+    font-family: "Poppins", sans-serif;
+    font-size: 30px;
+    height: 1.4cm;
+    width: 5cm;
+    background-color:#6bf0f0c3  ;
+    /* padding: 0.4cm 0.5cm; */
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.475);
+    border: 0;
+    border-radius: 20px;
+    font-weight: 500;
+
+}
+
+#confirm:hover {
+    transition: 0.6s;
+
+    background-color:#33bf4f  ;
+    cursor: pointer;
+    color: white;
+    filter: invert(100%);
+    box-shadow: 0 0 10px rgb(38, 244, 52);
+}
 
 
 

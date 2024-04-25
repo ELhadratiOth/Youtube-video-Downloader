@@ -60,6 +60,9 @@
             </div>
         </div>
     </div>
+    <div class="confirm-div" >
+        <a id="confirm"  href=" {{ url_for('upload') }} "  > Upload it </a>
+</div>
 
 </div>
 
@@ -91,11 +94,12 @@
                         document.querySelector('.size').style = 'display:flex';
                         document.querySelector('.size').innerText ="File Size : " + filelen + "MB";
                         // document.querySelector('.loader').style =  'width = 100% ,  background: green'; 
+                        document.getElementById('confirm').click()
                         clearInterval(intervalId); // Stop the setInterval 
                     }         
                     document.getElementById("outer-bar").style.animation = "none";  
                   
-                    if (data.number === 100 && !hasReached100) {
+                    if (data.number === 100  && !hasReached100) {
                         hasReached100 = true;
                     }
                 } else {
