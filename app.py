@@ -3,7 +3,6 @@ from flask import Flask, jsonify, render_template, request, redirect, url_for , 
 import threading
 import os
 import pickle
-from moviepy.editor import AudioFileClip
 from pytube import YouTube , Playlist
 import facFunction
 from flask_mail import Mail, Message
