@@ -58,14 +58,18 @@ def DownlaodClip(clip ,type):
         video_clip.download(filename_prefix="OYTDownload_")
     else:
         audio_stream = clip.streams.filter(only_audio=True).first()
-        audio_path = audio_stream.download()
-        audio_clip = AudioFileClip(audio_path)
-        audio_clip.write_audiofile(os.path.join(os.getcwd(), f"OYTDownload_{clip.title}.mp3"))
-        audio_clip.close()
-        os.remove(audio_path)
+        audio_path = audio_stream.download(filename_prefix="OYTDownload_")
+        base_name, _ = os.path.splitext(audio_path)
+        new_file_path = f"{base_name}.mp3"
+        os.rename(audio_path, new_file_path)
+
 
     # time.sleep(5)
-    os.remove('te.bin')
+    try :
+        os.remove('te.bin')
+    except FileNotFoundError :
+        pass
+
 
     
     
