@@ -20,6 +20,7 @@ app.config["MAIL_USE_TLS"] = True
 app.config["MAIL_USE_SSL"] = False
 mail = Mail(app)
 filename = ""
+thread = ""
 
 TYPE=('Mp3','Mp4')
 def progress(stream, chunk, bytes_remaining):
@@ -42,11 +43,16 @@ def downloadPlaylist(link, type):
 def downloadVideoAudio(link, type):
     with open('te.bin', 'w'):
         pass
-    clip = YouTube(link,on_progress_callback=progress)
+    clip = YouTube(link,on_progress_callback=progress )
     DownlaodClip(clip, type)
 
 
 def DownlaodClip(clip ,type):
+    global filename
+    print("rterwgfbtrbnty")
+    print("haaaa ana 1 " , filename)
+    filename = 'OYTDownload_' + clip.title + '.' + type.lower()
+    print("haaaa ana 1 " , filename)
     if type == 'Mp4':
         video_clip = clip.streams.get_highest_resolution()
         video_clip.download(filename_prefix="OYTDownload_")
@@ -57,8 +63,10 @@ def DownlaodClip(clip ,type):
         audio_clip.write_audiofile(os.path.join(os.getcwd(), f"OYTDownload_{clip.title}.mp3"))
         audio_clip.close()
         os.remove(audio_path)
-    time.sleep(5)
+
+    # time.sleep(5)
     os.remove('te.bin')
+
     
     
 
@@ -68,8 +76,19 @@ def DownlaodClip(clip ,type):
 def index():
     if 'YTDownloads' not in os.getcwd():
         os.chdir('YTDownloads')
-    if os.path.exists(filename) :
-        os.remove(filename)
+
+    try:
+        print("i am trying to pass")
+        files = os.listdir(os.getcwd())
+
+        for file in files:
+            print("this file has been deleted :", file)
+            os.remove(file)
+
+
+    except Exception:
+        print("i passed ")
+        pass
 
     if request.method == 'GET':
         return  render_template("index.html")
@@ -105,29 +124,32 @@ def mailSent():
 
 @app.route('/loading', methods=[ 'POST','GET'])
 def loading():
-    global filename
-    if 'YTDownloads' not in os.getcwd():
-        os.chdir('YTDownloads')
     url = request.args.get('url')
     typeDownload = request.args.get('typeDownload')
     clip = YouTube(url)
-    if os.path.exists('OYTDownload_'+clip.title+'.'+typeDownload.lower() ) :
-        os.remove('OYTDownload_'+clip.title+'.'+typeDownload.lower())
-    global thread
-    thread = threading.Thread(target=downloadVideoAudio,  args=(url, typeDownload))
-    thread.start()
-    # if thread.is_alive():
-    #     print("Thread is running")
-    # else:
-    #     print("Thread is not running")
-    filename = 'OYTDownload_'+clip.title+'.'+typeDownload.lower()
-    print("first " , filename)
-    return render_template("loading.html" , author=clip.author  ,videoTitle=clip.title  , duration= facFunction.elemnt_length(clip.length)  , thumbnail_url=clip.thumbnail_url , publish_date=clip.publish_date.date() )
-@app.route('/upload')
-def upload():
-    file_path = ".\\YTDownloads\\" + filename
-    print(file_path)
-    return send_file(file_path, as_attachment=True)
+    try :
+        if 'YTDownloads' not in os.getcwd():
+            os.chdir('YTDownloads')
+
+        if os.path.exists('OYTDownload_'+clip.title+'.'+typeDownload.lower() ) :
+            os.remove('OYTDownload_'+clip.title+'.'+typeDownload.lower())
+        thread = threading.Thread(target=downloadVideoAudio, daemon=True ,   args=(url, typeDownload))
+        thread.start()
+        # if thread.is_alive():
+        #     print("Thread is running")
+        # else:
+        #     print("Thread is notrunning")
+        # filename = 'OYTDownload_'+clip.title+'.'+typeDownload.lower()
+        print('file that downloads now is : ' , filename)
+        return render_template("loading.html", author=clip.author, videoTitle=clip.title,
+                               duration=facFunction.elemnt_length(clip.length), thumbnail_url=clip.thumbnail_url, download_format =typeDownload.upper() ,
+                               publish_date=clip.publish_date.date())
+
+    except PermissionError :
+        return render_template("loading.html", author=clip.author, videoTitle=clip.title,
+                               duration=facFunction.elemnt_length(clip.length), thumbnail_url=clip.thumbnail_url,
+                               publish_date=clip.publish_date.date())
+
 
 @app.route('/get_progress', methods=['GET'])
 def get_number():
@@ -145,6 +167,22 @@ def get_number():
 
 @app.route('/switch' , methods=['POST' , 'GET'] )
 def switch():
+    if 'YTDownloads' not in os.getcwd():
+        os.chdir('YTDownloads')
+
+    try :
+        print("i am trying to pass")
+        files = os.listdir(os.getcwd())
+
+        for file in files:
+            print("this file has been deleted :", file)
+            os.remove(file)
+
+
+    except Exception :
+        print("i passed ")
+        pass
+
     if request.method == 'GET' :
         return render_template("playlist.html")
     elif request.method == 'POST' :
@@ -162,19 +200,49 @@ def loadingp():
     url = request.args.get('url')
     typeDownload = request.args.get('typeDownload')
     clip = Playlist(url)
-    thread = threading.Thread(target=downloadPlaylist, daemon=True ,  args=(url, typeDownload))
+    thread = threading.Thread(target=downloadPlaylist, daemon=True,  args=(url, typeDownload))
     thread.start()
     if thread.is_alive():
         print("Thread is running")
     else:
         print("Thread is not running")
     thum=clip.sidebar_info[0]['playlistSidebarPrimaryInfoRenderer']["thumbnailRenderer"]["playlistVideoThumbnailRenderer"]["thumbnail"]["thumbnails"][0]['url']
-    return render_template("loadingp.html" , author=clip.owner  ,videoTitle=clip.title  , length= clip.length   , thumbnail_url=thum  )
+    return render_template("loadingp.html" , author=clip.owner  ,videoTitle=clip.title  , length= clip.length   , thumbnail_url=thum , download_format =typeDownload.upper() )
 
 @app.route('/get_progress_p', methods=['GET'])
 def get_number_p():
     return jsonify({'counter' : COUNTER})
 
+@app.route('/upload')
+def upload():
+    global filename
+    try:
+        files = os.listdir(os.getcwd())
+
+        if 'YTDownloads' not in os.getcwd():
+            os.chdir('YTDownloads')
+        for file in files:
+            print( "targetd : " , file.title())
+        print(os.getcwd())
+        print("fiiiiil :", filename)
+
+        file_path =os.path.join(os.getcwd(), filename)
+        print(file_path)
+        return send_file(file_path, as_attachment=True)
+    except FileNotFoundError :
+        time.sleep(4)
+        files = os.listdir(os.getcwd())
+
+        if 'YTDownloads' not in os.getcwd():
+            os.chdir('YTDownloads')
+        for file in files:
+            print("targetd : ", file.title())
+        print(os.getcwd())
+        print("fiiiiil :", filename)
+
+        file_path = os.path.join(os.getcwd(), filename)
+        print(file_path)
+        return send_file(file_path, as_attachment=True)
 
 
 if __name__ == '__main__':

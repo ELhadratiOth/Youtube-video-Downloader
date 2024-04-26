@@ -32,6 +32,9 @@
             {{ publish_date }} 
         </p>
         <p><span class="title-option-detail">Duration : </span>  {{ duration }}
+        <p><span class="title-option-detail">Download Format : </span>
+                {{ download_format }} 
+        </p>
         </p>
          </div> 
          </div>
@@ -94,6 +97,14 @@
                         document.querySelector('.size').style = 'display:flex';
                         document.querySelector('.size').innerText ="File Size : " + filelen + "MB";
                         // document.querySelector('.loader').style =  'width = 100% ,  background: green'; 
+                        document.querySelector('.allow-click1').style.cursor = 'pointer';
+                        document.querySelector('.allow-click1').setAttribute('href', '#faq');
+                        document.querySelector('.allow-click2').style.cursor = 'pointer';
+                        document.querySelector('.allow-click2').setAttribute('href', '#contactUs');
+                        document.querySelector('.allow-switch-click').style.cursor = 'pointer';
+                        document.querySelector('.allow-switch-click').setAttribute('href', '/switch');            
+            
+  
                         document.getElementById('confirm').click()
                         clearInterval(intervalId); // Stop the setInterval 
                     }         
@@ -114,6 +125,7 @@
     
     var intervalId = setInterval(fetchNumber, 4000); 
     fetchNumber();
+
 </script>
 
 {% endblock loading  %}  

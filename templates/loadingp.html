@@ -20,7 +20,6 @@
                 <p class="title-para"> 
                 {{ videoTitle }}
                 <!-- How to Create an Active Nav Link on Scroll using HTML CSS and Javascript | Active Menu Class -->
-
                 </p>
             </div>
         <div class="option-detail">   
@@ -29,6 +28,9 @@
         </p>   
 
         <p><span class="title-option-detail">Number of videos : </span> <span class="length-pl"><span class="length-pl-spa">{{ length }}</span>   Videos </span> 
+        </p>
+        <p><span class="title-option-detail">Download Format : </span>
+            {{ download_format }} 
         </p>
          </div> 
          </div>
@@ -57,6 +59,9 @@
             </div>
         </div>
     </div>
+    <div class="confirm-div" >
+        <a id="confirm"  href=" {{ url_for('upload') }} "  > Upload it </a>
+</div>
 
 </div>
 
@@ -79,7 +84,9 @@
                     element.style.transition = "width 1s ease";
                     element.style.width = String(pas) + '%';
                     document.querySelector('.sizep').innerText = data.counter + " / " + maxVid ;
-                    document.querySelector('.count-vids').innerText =  data.counter ;                  
+                    document.querySelector('.count-vids').innerText =  data.counter ;
+                    document.getElementById('confirm').click()
+
                 }
                 if(  data.counter === maxVid) {
                      document.getElementById('number').innerText = 100 + "%";
@@ -87,6 +94,12 @@
                     element.style.width = '100%'; 
                     document.querySelector('.done').style = 'display:flex';
                     document.querySelector('.Completed').innerText = ' PlayList Downloaded Successfully'; 
+                    document.querySelector('.allow-click1').style.cursor = 'pointer';
+                        document.querySelector('.allow-click1').setAttribute('href', '#faq');
+                        document.querySelector('.allow-click2').style.cursor = 'pointer';
+                        document.querySelector('.allow-click2').setAttribute('href', '#contactUs');
+                        document.querySelector('.allow-switch-click').style.cursor = 'pointer';
+                        document.querySelector('.allow-switch-click').setAttribute('href', '/switch');
                     clearInterval(intervalId);
                 }
                 
@@ -97,13 +110,16 @@
             .catch(error => {
                 console.error('Error:', error);
             }
+
+               
             
             );
     }
     
 
-    var intervalId = setInterval(fetchNumber, 4000); 
+    var intervalId = setInterval(fetchNumber, 2000); 
     fetchNumber();
+
 </script>
 
 {% endblock loading  %}  
