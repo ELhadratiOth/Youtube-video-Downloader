@@ -241,7 +241,7 @@ def upload():
 
         file_path = os.path.join(os.getcwd(), filename)
         # print(file_path)
-        return send_file(file_path, as_attachment=True)
+        return send_file(file_path,as_attachment=True)
 
 
 if __name__ == '__main__':
