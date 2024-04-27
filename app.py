@@ -210,7 +210,7 @@ def loadingp():
     else:
         print("Thread is not running")
     thum=clip.sidebar_info[0]['playlistSidebarPrimaryInfoRenderer']["thumbnailRenderer"]["playlistVideoThumbnailRenderer"]["thumbnail"]["thumbnails"][0]['url']
-    return render_template("loadingp.html" , author=clip.owner  ,videoTitle=clip.title  , length= clip.length   , thumbnail_url=thum , download_format =typeDownload.upper() )
+    return render_template("loadingp.html", author=clip.owner  ,videoTitle=clip.title  , length= clip.length   , thumbnail_url=thum , download_format =typeDownload.upper() )
 
 @app.route('/get_progress_p', methods=['GET'])
 def get_number_p():
