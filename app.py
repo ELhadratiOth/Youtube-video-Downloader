@@ -239,7 +239,7 @@ def upload():
         # print(os.getcwd())
         # print("fiiiiil :", filename)
 
-        file_path = os.path.join(os.getcwd(), filename)
+        file_path = os.path.join(os.getcwd(),filename)
         # print(file_path)
         return send_file(file_path,as_attachment=True)
 
