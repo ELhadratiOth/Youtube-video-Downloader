@@ -95,7 +95,8 @@
                         document.querySelector('.done').style = 'display:flex';
                         document.querySelector('.Completed').innerText = 'Downloaded successfully'; 
                         document.querySelector('.size').style = 'display:flex';
-                        document.querySelector('.size').innerText ="File Size : " + filelen + "MB";
+                        if (filelen !== 0)
+                                document.querySelector('.size').innerText ="File Size : " + filelen + "MB";
                         // document.querySelector('.loader').style =  'width = 100% ,  background: green'; 
                         document.querySelector('.allow-click1').style.cursor = 'pointer';
                         document.querySelector('.allow-click1').setAttribute('href', '#faq');

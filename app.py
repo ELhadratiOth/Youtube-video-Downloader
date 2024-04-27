@@ -6,7 +6,7 @@ import pickle
 from pytube import YouTube , Playlist
 import facFunction
 from flask_mail import Mail, Message
-from dotenv import load_dotenv 
+from dotenv import load_dotenv
 
 load_dotenv()
 COUNTER = 0
@@ -48,10 +48,10 @@ def downloadVideoAudio(link, type):
 
 def DownlaodClip(clip ,type):
     global filename
-    print("rterwgfbtrbnty")
-    print("haaaa ana 1 " , filename)
+    # print("rterwgfbtrbnty")
+    # print("haaaa ana 1 " , filename)
     filename = 'OYTDownload_' + clip.title + '.' + type.lower()
-    print("haaaa ana 1 " , filename)
+    # print("haaaa ana 1 " , filename)
     if type == 'Mp4':
         video_clip = clip.streams.get_highest_resolution()
         video_clip.download(filename_prefix="OYTDownload_")
@@ -61,9 +61,6 @@ def DownlaodClip(clip ,type):
         base_name, _ = os.path.splitext(audio_path)
         new_file_path = f"{base_name}.mp3"
         os.rename(audio_path, new_file_path)
-
-
-    # time.sleep(5)
     try :
         os.remove('te.bin')
     except FileNotFoundError :
@@ -79,18 +76,17 @@ def DownlaodClip(clip ,type):
 def index():
     if 'YTDownloads' not in os.getcwd():
         os.chdir('YTDownloads')
-
     try:
-        print("i am trying to pass")
+        # print("i am trying to pass")
         files = os.listdir(os.getcwd())
 
         for file in files:
-            print("this file has been deleted :", file)
+            # print("this file has been deleted :", file)
             os.remove(file)
 
 
     except Exception:
-        print("i passed ")
+        # print("i passed ")
         pass
 
     if request.method == 'GET':
@@ -143,7 +139,7 @@ def loading():
         # else:
         #     print("Thread is notrunning")
         # filename = 'OYTDownload_'+clip.title+'.'+typeDownload.lower()
-        print('file that downloads now is : ' , filename)
+        # print('file that downloads now is : ' , filename)
         return render_template("loading.html", author=clip.author, videoTitle=clip.title,
                                duration=facFunction.elemnt_length(clip.length), thumbnail_url=clip.thumbnail_url, download_format =typeDownload.upper() ,
                                publish_date=clip.publish_date.date())
@@ -174,16 +170,16 @@ def switch():
         os.chdir('YTDownloads')
 
     try :
-        print("i am trying to pass")
+        # print("i am trying to pass")
         files = os.listdir(os.getcwd())
 
         for file in files:
-            print("this file has been deleted :", file)
+            # print("this file has been deleted :", file)
             os.remove(file)
 
 
     except Exception :
-        print("i passed ")
+        # print("i passed ")
         pass
 
     if request.method == 'GET' :
@@ -205,10 +201,10 @@ def loadingp():
     clip = Playlist(url)
     thread = threading.Thread(target=downloadPlaylist, daemon=True,  args=(url, typeDownload))
     thread.start()
-    if thread.is_alive():
-        print("Thread is running")
-    else:
-        print("Thread is not running")
+    # if thread.is_alive():
+    #     print("Thread is running")
+    # else:
+    #     print("Thread is not running")
     thum=clip.sidebar_info[0]['playlistSidebarPrimaryInfoRenderer']["thumbnailRenderer"]["playlistVideoThumbnailRenderer"]["thumbnail"]["thumbnails"][0]['url']
     return render_template("loadingp.html", author=clip.owner  ,videoTitle=clip.title  , length= clip.length   , thumbnail_url=thum , download_format =typeDownload.upper() )
 
@@ -224,13 +220,13 @@ def upload():
 
         if 'YTDownloads' not in os.getcwd():
             os.chdir('YTDownloads')
-        for file in files:
-            print( "targetd : " , file.title())
-        print(os.getcwd())
-        print("fiiiiil :", filename)
+        # for file in files:
+            # print( "targetd : " , file.title())
+        # print(os.getcwd())
+        # print("fiiiiil :", filename)
 
         file_path =os.path.join(os.getcwd(), filename)
-        print(file_path)
+        # print(file_path)
         return send_file(file_path, as_attachment=True)
     except FileNotFoundError :
         time.sleep(4)
@@ -238,15 +234,18 @@ def upload():
 
         if 'YTDownloads' not in os.getcwd():
             os.chdir('YTDownloads')
-        for file in files:
-            print("targetd : ", file.title())
-        print(os.getcwd())
-        print("fiiiiil :", filename)
+        # for file in files:
+        #      print("targetd : ", file.title())
+        # print(os.getcwd())
+        # print("fiiiiil :", filename)
 
         file_path = os.path.join(os.getcwd(), filename)
-        print(file_path)
+        # print(file_path)
         return send_file(file_path, as_attachment=True)
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0' ,debug=True, port=9999)
+    # app.run(host='0.0.0.0' ,debug=True, port=9999)
+     app.run()
+
+
