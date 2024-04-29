@@ -59,7 +59,7 @@
     // Event listener for form submission
     document.getElementById("youtubeForm").addEventListener("submit", function(event) {
     var url = document.getElementById("youtubeUrl").value;
-    const pattern = (/^(https?:\/\/(?:www\.)?youtube\.com\/(?:shorts\/|watch\?.*v=[\w-]+))/) | (/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]+)/)  | (/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]+)/) ;
+    const pattern = (/(?:youtu\.be\/|youtube\.com(?:\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=|shorts\/)|youtu\.be\/|embed\/|v\/|m\/|watch\?(?:[^=]+=[^&]+&)*?v=))([^"&?\/\s]{11})/gm) ;
     var typeDownload = document.getElementById("typeDownload").value;
     var TYPES = ['Mp3', 'Mp4'];
 

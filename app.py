@@ -7,6 +7,7 @@ from pytube import YouTube , Playlist
 import facFunction
 from flask_mail import Mail, Message
 from dotenv import load_dotenv
+from pytube.exceptions import RegexMatchError
 
 load_dotenv()
 COUNTER = 0
@@ -36,8 +37,12 @@ def downloadPlaylist(link, type):
     clips = Playlist(link)
     for clip in clips.video_urls :
         downloadVideoAudio(clip, type)
+        print("finish")
         COUNTER += 1
-        time .sleep(2)
+        time.sleep(5)
+        files = os.listdir(os.getcwd())
+        for file in files:
+            os.remove(file)
 
 
 def downloadVideoAudio(link, type):
@@ -80,14 +85,10 @@ def index():
     try:
         # print("i am trying to pass")
         files = os.listdir(os.getcwd())
-
         for file in files:
             # print("this file has been deleted :", file)
             os.remove(file)
-
-
     except Exception:
-        # print("i passed ")
         pass
 
     if request.method == 'GET':
@@ -99,7 +100,10 @@ def index():
         emailContactUs  = request.form.get('emailContactUs')
         textContactUs  = request.form.get('textContactUs')
         if url and typeDownload in TYPE:
-            return  redirect(url_for('loading',url=url , typeDownload=typeDownload) )
+            # try :
+                return  redirect(url_for('loading',url=url , typeDownload=typeDownload) )
+            # except RegexMatchError :
+            #     return redirect(url_for('/'))
         elif fullNameContactUs and  emailContactUs and textContactUs :
             fullNameContactUs = request.form.get('fullNameContactUs')
             emailContactUs = request.form.get('emailContactUs')
@@ -172,13 +176,10 @@ def switch():
 
     try :
         # print("i am trying to pass")
-        # files = os.listdir(os.getcwd())
-
+        files = os.listdir(os.getcwd())
         for file in files:
             # print("this file has been deleted :", file)
             os.remove(file)
-
-
     except Exception :
         # print("i passed ")
         pass
@@ -190,7 +191,7 @@ def switch():
         typeDownload = request.form.get('typeDownload')
         if url and typeDownload in TYPE:
             return  redirect(url_for('loadingp',url=url , typeDownload=typeDownload) )
-        else :
+        else:
             return "hack2"
 
 @app.route('/loadingp', methods=[ 'POST','GET'])
@@ -223,13 +224,27 @@ def upload():
             # print( "targetd : " , file.title())
         # print(os.getcwd())
         # print("fiiiiil :", filename)
-        try :
+        try:
             file_path =os.path.join(os.getcwd(), filename)
             return send_file(file_path, as_attachment=True)
-        except OSError :
+        except FileNotFoundError:
+            try:
+                os.remove('te.bin')
+            except FileNotFoundError:
+                pass
             file = os.listdir(os.getcwd())
-            print(file)
-            return send_file(file, as_attachment=True)
+            target = os.path.join(os.getcwd(), file[0])
+            print(target)
+            return send_file(target, as_attachment=True)
+        except  OSError:
+            try:
+                os.remove('te.bin')
+            except FileNotFoundError:
+                pass
+            file = os.listdir(os.getcwd())
+            target = os.path.join(os.getcwd(), file[0])
+            print(target)
+            return send_file(target, as_attachment=True)
 
 
 

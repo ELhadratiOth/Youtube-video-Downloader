@@ -71,7 +71,7 @@
 </div>
 
 <script>
-    var oldWidth = document.querySelector('#progress-bar').offsetWidth; 
+    var oldWidth = document.querySelector('#progress-bar').offsetWidth.toFixed(2); 
     console.log(oldWidth)    // to get the current width of progress bar
     var filelen = -1; // 'offsetWidth' property to get the width in pixels
     var hasReached100 = false; // to disable the recursion of the function when the download finish       
@@ -87,11 +87,11 @@
                     filelen = data.filesize;
                 }
                 
-                if (data.number !== oldWidth) {
-                    document.getElementById('number').innerText = data.number + "%";
+                if (data.number.toFixed(2) !== oldWidth) {
+                    document.getElementById('number').innerText = data.number.toFixed(2)  + "%";
                     var element = document.querySelector('#progress-bar');        
                     element.style.transition = "width 1s ease";
-                    element.style.width = data.number + '%';
+                    element.style.width = data.number.toFixed(2)  + '%';
                     if (data.number === 100 && hasReached100) {
                         document.querySelector('.done').style = 'display:flex';
                         document.querySelector('.Completed').innerText = 'Downloaded successfully'; 
@@ -105,7 +105,7 @@
                         document.querySelector('.allow-click2').setAttribute('href', '#contactUs');
                         document.querySelector('.allow-switch-click').style.cursor = 'pointer';
                         document.querySelector('.allow-switch-click').setAttribute('href', '/switch'); 
-                        document.querySelector('.allow-switch-click').style.cursor = 'pointer';
+                        document.querySelector('.allow-switch-click0').style.cursor = 'pointer';
                         document.querySelector('.allow-switch-click0').setAttribute('href', '/'); 
 
                         document.querySelector('.waiting-download').style = 'display : none;'

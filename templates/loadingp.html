@@ -68,7 +68,7 @@
 <script>
     
     const maxVid = Number( document.querySelector(".length-pl-spa").innerText) ;
-    const pas =  100 / maxVid ;
+    const pas = (100 / maxVid).toFixed(0)  ;
     
     function fetchNumber() {
         fetch('/get_progress_p') 
@@ -80,9 +80,11 @@
                 var element = document.querySelector('#progress-bar');        
                 if(data.counter === oldCount ){
                     document.getElementById("outer-bar").style.animation = "none";  
-                    document.getElementById('number').innerText = pas + "%";
+                    document.getElementById('number').innerText = data.counter*pas + "%";
                     element.style.transition = "width 1s ease";
-                    element.style.width = String(pas) + '%';
+                    console.log( 'video number ' +  pas) ;
+                    
+                    element.style.width =  data.counter*pas + '%';
                     document.querySelector('.sizep').innerText = data.counter + " / " + maxVid ;
                     document.querySelector('.count-vids').innerText =  data.counter ;
                     document.getElementById('confirm').click()
@@ -98,8 +100,8 @@
                         document.querySelector('.allow-click1').setAttribute('href', '#faq');
                         document.querySelector('.allow-click2').style.cursor = 'pointer';
                         document.querySelector('.allow-click2').setAttribute('href', '#contactUs');
-                        document.querySelector('.allow-switch-click').style.cursor = 'pointer';
-                        document.querySelector('.allow-switch-click').setAttribute('href', '/switch');
+                        document.querySelector('.allow-switch-click0').style.cursor = 'pointer';
+                        document.querySelector('.allow-switch-click0').setAttribute('href', '/switch');
                     clearInterval(intervalId);
                 }
                 
