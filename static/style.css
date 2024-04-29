@@ -249,6 +249,7 @@ padding-bottom: 1.2cm;
 
 .bar{
     animation: colorSwitch 1s infinite alternate ;
+    margin-bottom: 0.3cm;
 
 }
 
@@ -1063,6 +1064,19 @@ transition: 1s  all ease;
     color: white;
     filter: invert(100%);
     box-shadow: 0 0 10px rgb(38, 244, 52);
+}
+
+
+
+.waiting-download{
+
+    color: #00c8ff;
+    animation: waiting 2s linear infinite;
+    font-size: 17px ;
+    font-family: "Poppins", sans-serif;
+    display: inline;
+    text-align: center;
+    
 }
 
 

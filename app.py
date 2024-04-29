@@ -37,6 +37,7 @@ def downloadPlaylist(link, type):
     for clip in clips.video_urls :
         downloadVideoAudio(clip, type)
         COUNTER += 1
+        time .sleep(2)
 
 
 def downloadVideoAudio(link, type):
@@ -171,7 +172,7 @@ def switch():
 
     try :
         # print("i am trying to pass")
-        files = os.listdir(os.getcwd())
+        # files = os.listdir(os.getcwd())
 
         for file in files:
             # print("this file has been deleted :", file)
@@ -214,9 +215,7 @@ def get_number_p():
 
 @app.route('/upload')
 def upload():
-    global filename
-    try:
-        files = os.listdir(os.getcwd())
+        global filename
 
         if 'YTDownloads' not in os.getcwd():
             os.chdir('YTDownloads')
@@ -224,27 +223,17 @@ def upload():
             # print( "targetd : " , file.title())
         # print(os.getcwd())
         # print("fiiiiil :", filename)
+        try :
+            file_path =os.path.join(os.getcwd(), filename)
+            return send_file(file_path, as_attachment=True)
+        except OSError :
+            file = os.listdir(os.getcwd())
+            print(file)
+            return send_file(file, as_attachment=True)
 
-        file_path =os.path.join(os.getcwd(), filename)
-        # print(file_path)
-        return send_file(file_path, as_attachment=True)
-    except FileNotFoundError :
-        time.sleep(4)
-        files = os.listdir(os.getcwd())
-
-        if 'YTDownloads' not in os.getcwd():
-            os.chdir('YTDownloads')
-        # for file in files:
-        #      print("targetd : ", file.title())
-        # print(os.getcwd())
-        # print("fiiiiil :", filename)
-
-        file_path = os.path.join(os.getcwd(),filename)
-        # print(file_path)
-        return send_file(file_path,as_attachment=True)
 
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 10000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port , debug=True)
 
