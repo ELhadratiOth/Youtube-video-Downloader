@@ -57,6 +57,7 @@
             <div class="bar" id="outer-bar" >
                 <span class="loader" id="progress-bar" style="width: 0%;" ></span>
             </div>
+            <p class="waiting-download">Please Wait until the video is fully downloaded.</p>
         </div>
     </div>
     <div class="confirm-div" >
@@ -102,6 +103,8 @@
                         document.querySelector('.allow-click2').setAttribute('href', '#contactUs');
                         document.querySelector('.allow-switch-click0').style.cursor = 'pointer';
                         document.querySelector('.allow-switch-click0').setAttribute('href', '/switch');
+                        document.querySelector('.waiting-download').style = 'display : none;'
+
                     clearInterval(intervalId);
                 }
                 
