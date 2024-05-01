@@ -1,5 +1,5 @@
 import time
-from flask import Flask, jsonify, render_template, request, redirect, url_for , send_file , after_this_request
+from flask import Flask, jsonify, render_template, request, redirect, url_for , send_file
 import threading
 import os
 import pickle
@@ -7,7 +7,6 @@ from pytube import YouTube , Playlist
 import facFunction
 from flask_mail import Mail, Message
 from dotenv import load_dotenv
-from pytube.exceptions import RegexMatchError
 
 load_dotenv()
 COUNTER = 0
@@ -111,19 +110,19 @@ def index():
             if len(textContactUs.strip()) != 0 :
                 msg = Message(fullNameContactUs,
                       sender=app.config['MAIL_USERNAME'],
-                      recipients=[emailContactUs])
-                msg.body = textContactUs
+                      recipients=[app.config['MAIL_USERNAME']])
+                msg.body = textContactUs + '\nThis emeil has been sent by : ' + emailContactUs
                 mail.send(msg)
                 return redirect(url_for('mailSent'))
             else :
                 return "<h1>The message email is Empty </h1>"
 
         else :
-            return "<h1> Internal Error Occurs , Try to Reload the back to the Home Page </h1>"
+            return "<h1> Internal Error Occurs , Try to Reload the back to the Home Page </h1> "
 
 @app.route('/mailSent', methods=['POST','GET'])
 def mailSent():
-    return "good"
+    return "<h2> Email Sent Successfully   </h2>  <p> Happy to recieve Your Opinion</p> <p> <button  onclick=\"window.location.href = '/';\"> Go Back Home </button> </p>"
 
 
 @app.route('/loading', methods=[ 'POST','GET'])
