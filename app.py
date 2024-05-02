@@ -103,7 +103,7 @@ def index():
                 return  redirect(url_for('loading',url=url , typeDownload=typeDownload) )
             # except RegexMatchError :
             #     return redirect(url_for('/'))
-        elif fullNameContactUs and  emailContactUs and textContactUs :
+        elif fullNameContactUs and emailContactUs and textContactUs :
             fullNameContactUs = request.form.get('fullNameContactUs')
             emailContactUs = request.form.get('emailContactUs')
             textContactUs = request.form.get('textContactUs')
