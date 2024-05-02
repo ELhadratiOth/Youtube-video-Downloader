@@ -107,7 +107,7 @@ def index():
             fullNameContactUs = request.form.get('fullNameContactUs')
             emailContactUs = request.form.get('emailContactUs')
             textContactUs = request.form.get('textContactUs')
-            if len(textContactUs.strip()) != 0 :
+            if len(textContactUs.strip()) != 0:
                 msg = Message(fullNameContactUs,
                       sender=app.config['MAIL_USERNAME'],
                       recipients=[app.config['MAIL_USERNAME']])
