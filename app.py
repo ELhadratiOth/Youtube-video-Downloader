@@ -55,14 +55,20 @@ def DownlaodClip(clip ,type):
     global filename
     # print("rterwgfbtrbnty")
     # print("haaaa ana 1 " , filename)
-    filename = 'OYTDownload_' + clip.title + '.' + type.lower()
+    filename = clip.title + '.' + type.lower()
     # print("haaaa ana 1 " , filename)
     if type == 'Mp4':
         video_clip = clip.streams.get_highest_resolution()
-        video_clip.download(filename_prefix="OYTDownload_")
+        video_clip.download()
+        # video_clip.download(filename_prefix="OYTDownload_")
+        video_clip.download()
+
+
     else:
         audio_stream = clip.streams.filter(only_audio=True).first()
-        audio_path = audio_stream.download(filename_prefix="OYTDownload_")
+        audio_path = audio_stream.download()
+        # audio_path = audio_stream.download(filename_prefix="OYTDownload_")
+
         base_name, _ = os.path.splitext(audio_path)
         new_file_path = f"{base_name}.mp3"
         os.rename(audio_path, new_file_path)
@@ -134,8 +140,8 @@ def loading():
         if 'YTDownloads' not in os.getcwd():
             os.chdir('YTDownloads')
 
-        if os.path.exists('OYTDownload_'+clip.title+'.'+typeDownload.lower() ) :
-            os.remove('OYTDownload_'+clip.title+'.'+typeDownload.lower())
+        if os.path.exists(clip.title+'.'+typeDownload.lower() ) :
+            os.remove(clip.title+'.'+typeDownload.lower())
         thread = threading.Thread(target=downloadVideoAudio, daemon=True ,   args=(url, typeDownload))
         thread.start()
         # if thread.is_alive():
